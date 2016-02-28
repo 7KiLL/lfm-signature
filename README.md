@@ -8,8 +8,8 @@ Features:
 3. Varity. You can make many cases of images with custom settings and return it randomly
 
 ### How to
-1.Include class to new `.php` page or append code on this. 
-2.Build image case using `BuildPicture()`
+1. Include class to new `.php` page or append code on this. 
+2. Build image case using `BuildPicture()`
 For example
 ```
 $creator = new LFMNowPlaying();
@@ -21,6 +21,6 @@ Then just run class with your username
 ```
 $creator->Run("Mr7kill");
 ```
-3.It will make script show your image. 
-4.???
-5.PROFIT
+3. It will make script show your image. 
+4. ???
+5. PROFIT
