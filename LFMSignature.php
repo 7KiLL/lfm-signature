@@ -105,6 +105,6 @@ class LFMNowPlaying {
 
 $creator = new LFMNowPlaying();
 $creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png");
-$creator->BuildPicture("Permanent Marker", 16, "E000D9", "eriri.png");
+$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130);
 $creator->Run("Mr7kill");
 ?>
