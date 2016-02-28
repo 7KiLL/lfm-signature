@@ -12,14 +12,14 @@ Features:
 2. Build image case using `BuildPicture()`
 
 For example
-```
+```PHP
 $creator = new LFMNowPlaying();
 $creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png");
 $creator->BuildPicture("Permanent Marker", 16, "E000D9", "eriri.png");
 ```
 Make sure that `Fonts` dir contains those fonts and pictures located in `pics` directory.
 Then just run class with your username
-```
+```PHP
 $creator->Run("Mr7kill");
 ```
 
