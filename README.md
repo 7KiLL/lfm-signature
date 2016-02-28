@@ -9,22 +9,18 @@ Features:
 
 ### How to
 1. Include class to new `.php` page or append code on this. 
-2. Build image case using `BuildPicture()`
+2. Build image case using `BuildPicture()`.
+3. Then just run script via `Run()` with your username.
 
 For example
 ```PHP
 $creator = new LFMNowPlaying();
-$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png");
-$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130);
-```
-Make sure that `Fonts` dir contains those fonts and pictures located in `pics` directory.
-Then just run class with your username
-```PHP
-$creator->Run("Mr7kill");
-```
+$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png"); //For local image
+$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130); //For hosted image with offset settings
 
-3. It will make script show your image. 
-4. ???
-5. PROFIT
+$creator->Run("mr7kill");
+```
+Make sure that `Fonts` dir contains used fonts and pictures located in `pics` directory. 
+If you need custom prefixes read script documentation for additional information. 
 
-[Live Demo](http://sig-lfmgen.rhcloud.com/json.php)
+###[Live Demo](http://sig-lfmgen.rhcloud.com/json.php)
