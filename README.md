@@ -27,4 +27,4 @@ $creator->Run("Mr7kill");
 4. ???
 5. PROFIT
 
-![Image of Yaktocat](http://sig-lfmgen.rhcloud.com/json.php)
+[Live Demo](http://sig-lfmgen.rhcloud.com/json.php)
