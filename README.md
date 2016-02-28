@@ -15,8 +15,10 @@ Features:
 For example
 ```PHP
 $creator = new LFMNowPlaying();
-$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png"); //For local image
-$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130); //For hosted image with offset settings
+//For local image with standart offsets
+$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png"); 
+//For hosted image with custom offset
+$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130); 
 
 $creator->Run("mr7kill");
 ```
