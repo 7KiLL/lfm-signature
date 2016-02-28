@@ -26,3 +26,5 @@ $creator->Run("Mr7kill");
 3. It will make script show your image. 
 4. ???
 5. PROFIT
+
+![Image of Yaktocat](http://sig-lfmgen.rhcloud.com/json.php)
