@@ -4,8 +4,8 @@ Simple class for those who want to make their signature cool.
 Features:
 
 1. Custom font, font size, color, offset 
-2. Custom image, can be located on your directory or hosting via URL
-3. Varity. You can make many cases of images with custom settings and return it randomly
+2. Custom image, local file or URL 
+3. Varity. You can make many cases of images with custom settings and return them randomly
 
 ### How to
 1. Include class to new `.php` page or append code on this. 
