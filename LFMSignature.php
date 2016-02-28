@@ -12,11 +12,11 @@
  */
 class LFMNowPlaying {
 
-    static public $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
-    static public $_nowplaying = "Now Playing: ";             //For currently playing song
-    static public $_lastplayed = "Last Played: ";             //For the last song
-    static public $_divider = " - ";                          //Char between artist and song
-    static public $_case = 0;                                 //Array random range
+    static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
+    static private $_nowplaying = "Now Playing: ";             //For currently playing song
+    static private $_lastplayed = "Last Played: ";             //For the last song
+    static private $_divider = " - ";                          //Char between artist and song
+    static private $_case = 0;                                 //Array random range
 
 
     //Image Params
@@ -24,46 +24,36 @@ class LFMNowPlaying {
      * @var array   Font path. Fonts have to be placed into 'Fonts/' dir
      * @var array   Font size
      */
-    static public $_font = array();
-    static public $_size = array();
+    static private $_font = array();
+    static private $_size = array();
 
     /**
      * @var array   $_r ,$_g, $_b RGB params took from HEX.
      */
-    static public $_r  = array();
-    static public $_g  = array();
-    static public $_b  = array();
+    static private $_r  = array();
+    static private $_g  = array();
+    static private $_b  = array();
 
     /**
      * @var array  Image path. Pics have to be placed into 'pics' dir or can be URL format
      */
-    static public $_img = array();
+    static private $_img = array();
 
     /**
      * @var array $_x $_y X and Y offset default bottom(X:10, Y:135)
      */
-    static public $_x = array();
-    static public $_y = array();
-
+    static private $_x = array();
+    static private $_y = array();
 
     /**
-     * @param $font         string Fonts/
-     * @param $size         int Normal 14-16, but it depends of font
-     * @param $hex          string HEX code of color. With # or without.
-     * @param $img          string pics/ or URL
-     * @param int $x        X offset
-     * @param int $y        Y offset
-     * @throws Exception    Bad HEX given
+     * @author hafees
+     * @url http://php.net/manual/ru/function.hexdec.php#99478
+     * @param string $hex Hex code
+     * @return array $RGB
+     * @throws Exception Bad HEX given
+     * Just simple modification for current script
      */
-    function BuildPicture($font, $size, $hex, $img, $x = 10, $y = 135) {
-        self::$_font[self::$_case] = "Fonts/".$font.".ttf";
-        self::$_size[self::$_case] = $size;
-
-        /**
-         * @author hafees
-         * @url http://php.net/manual/ru/function.hexdec.php#99478
-         * Just simple modification for current script
-         */
+    function HEX2RGB($hex) {
         $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hex); // Gets a proper hex string
         $rgbArray = array();
         if (strlen($hexStr) == 6) {
@@ -78,6 +68,24 @@ class LFMNowPlaying {
         } else {
             throw new Exception('Wrong HEX');
         }
+        return $rgbArray;
+    }
+
+    /**
+     * @param $font         string Fonts/
+     * @param $size         int Normal 14-16, but it depends of font
+     * @param $hex          string HEX code of color. With # or without.
+     * @param $img          string pics/ or URL
+     * @param int $x        X offset
+     * @param int $y        Y offset
+     * @throws Exception    Bad HEX given
+     */
+    function BuildPicture($font, $size, $hex, $img, $x = 10, $y = 135) {
+        self::$_font[self::$_case] = "Fonts/".$font.".ttf";
+        self::$_size[self::$_case] = $size;
+
+        //Hex
+        $rgbArray = $this->HEX2RGB($hex);
         self::$_r[self::$_case] = $rgbArray['red'];
         self::$_g[self::$_case] = $rgbArray['green'];
         self::$_b[self::$_case] = $rgbArray['blue'];
@@ -105,6 +113,7 @@ class LFMNowPlaying {
     function Run($user, $np = null, $lp = null, $divider = null)
     {
         //Building URL
+        $user = trim($user);
         $url =  'http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&format=json&user=' . $user . '&api_key=' .self::$_api . '&limit=1';
         $json = file_get_contents($url); //Parse API callback
         $songs = json_decode($json, TRUE); //Serialize JSON as assoc array
@@ -153,5 +162,5 @@ class LFMNowPlaying {
 $creator = new LFMNowPlaying();
 $creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png");
 $creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130);
-$creator->Run("Mr7kill");
+$creator->Run("mr7kill");
 ?>
