@@ -22,14 +22,14 @@ $creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRU
 
 $creator->Run("mr7kill");
 ```
-Make sure that `Fonts` dir contains used fonts and pictures located in `pics` directory. Or You can use `SetFontsPath()` and `SetPicsPath` to set your default directories. 
+Make sure that `Fonts` dir contains used fonts and pictures located in `pics` directory. Or you can use `SetFontsPath()` and `SetPicsPath()` to set your default directories. 
 ```PHP
 $creator = new LFMNowPlaying();
 $creator->SetPicsPath("MyPictures/");
-$creator->BuildPicture($params);
-$creator->Run("Username");
+$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.jpeg");
+$creator->Run("mr7kill", "Currently playing: ", "Was playing: ", " / ");
 ```
-If you need custom prefixes read script documentation for additional information. 
+You can read script documentation for additional information. 
 
 
 ###[Live Demo](http://sig-lfmgen.rhcloud.com/json.php)
