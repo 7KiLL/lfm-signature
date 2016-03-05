@@ -10,6 +10,10 @@
  * Class LFMNowPlaying
  * Has arrays of images params. Then take random index and show it for user with LastFM song.
  */
+
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 class LFMNowPlaying {
 
     static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
@@ -17,6 +21,8 @@ class LFMNowPlaying {
     static private $_lastplayed = "Last Played: ";             //For the last song
     static private $_divider = " - ";                          //Char between artist and song
     static private $_case = 0;                                 //Array random range
+    static private $_fonts_path = "Fonts/";
+    static private $_pics_path = "pics/";
 
 
     //Image Params
@@ -26,6 +32,11 @@ class LFMNowPlaying {
      */
     static private $_font = array();
     static private $_size = array();
+
+    /**
+     * @var array   Picture extension
+     */
+    static private $_pic_ext = array();
 
     /**
      * @var array   $_r ,$_g, $_b RGB params took from HEX.
@@ -45,12 +56,39 @@ class LFMNowPlaying {
     static private $_x = array();
     static private $_y = array();
 
+    function SetFontsPath($path) {
+        self::$_fonts_path = $path;
+    }
+
+    function SetPicsPath($path) {
+        self::$_pics_path = $path;
+    }
+
+    /**
+     * @param   string      $img image path or URL
+     * @return  string      Image extension
+     * @throws  Exception   Bad image given
+     */
+    function GetPictureExt($img) {
+        if(preg_match("/(.jpg|.jpeg)$/i", $img)) {
+            return "jpeg";
+        }
+        elseif(preg_match("/.png$/i", $img)){
+            return "png";
+        }
+        elseif(preg_match("/.gif$/i", $img)){
+            return "gif";
+        }
+        else {
+            throw new Exception("Bad image given");
+        }
+    }
     /**
      * @author hafees
      * @url http://php.net/manual/ru/function.hexdec.php#99478
-     * @param string $hex Hex code
-     * @return array $RGB
-     * @throws Exception Bad HEX given
+     * @param string $hex       Hex code
+     * @return array $rgbArray  Exactly array with RGB numbers
+     * @throws Exception        Bad HEX given
      * Just simple modification for current script
      */
     function HEX2RGB($hex) {
@@ -80,8 +118,9 @@ class LFMNowPlaying {
      * @param int $y        Y offset
      * @throws Exception    Bad HEX given
      */
-    function BuildPicture($font, $size, $hex, $img, $x = 10, $y = 135) {
-        self::$_font[self::$_case] = "Fonts/".$font.".ttf";
+    function BuildPicture($font, $size, $hex, $img, $x = 8, $y = 90) {
+        //Font tweaks
+        self::$_font[self::$_case] = self::$_fonts_path.$font.".ttf";
         self::$_size[self::$_case] = $size;
 
         //Hex
@@ -91,11 +130,13 @@ class LFMNowPlaying {
         self::$_b[self::$_case] = $rgbArray['blue'];
 
         //Check string for URL or local file path
-        if(preg_match('/http:/', $img))
+        if(preg_match('/http:/i', $img))
             self::$_img[self::$_case] = $img;
         else {
-            self::$_img[self::$_case] = 'pics/'.$img;
+            self::$_img[self::$_case] = self::$_pics_path.$img;
         }
+
+        self::$_pic_ext[self::$_case] = $this->GetPictureExt($img); //Extension
 
         //Offsets
         self::$_x[self::$_case] = $x;
@@ -114,7 +155,10 @@ class LFMNowPlaying {
     {
         //Building URL
         $user = trim($user);
-        $url =  'http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&format=json&user=' . $user . '&api_key=' .self::$_api . '&limit=1';
+        $url =  'http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&format=json&'.
+            'user=' . $user .
+            '&api_key=' . self::$_api .
+            '&limit=1';
         $json = file_get_contents($url); //Parse API callback
         $songs = json_decode($json, TRUE); //Serialize JSON as assoc array
         $artist = $songs["recenttracks"]["track"][0]["artist"]["#text"];
@@ -134,14 +178,25 @@ class LFMNowPlaying {
 
         $text = $pre.$artist.$divider.$song;
 
-        //$_case increment higher than images count, so we make it right.
+        //$_case increment higher than images count, so we make it correct.
         $i = rand(0, self::$_case-1);
         /**
-         * @url http://php.net/manual/ru/function.imagecreatefrompng.php
-         * @url http://php.net/manual/ru/function.imagecolorallocate.php
-         * @url http://php.net/manual/ru/function.imagettftext.php
+         * @url     http://php.net/manual/ru/function.imagecreatefrompng.php
+         * @url     http://php.net/manual/ru/function.imagecolorallocate.php
+         * @url     http://php.net/manual/ru/function.imagettftext.php
+         * @switch  Extensions
          */
-        $img = imagecreatefrompng(self::$_img[$i]);
+        switch(self::$_pic_ext[$i]) {
+            case "jpeg":
+                $img = imagecreatefromjpeg(self::$_img[$i]);
+                break;
+            case "png":
+                $img = imagecreatefrompng(self::$_img[$i]);
+                break;
+            case "gif":
+                $img = imagecreatefromgif(self::$_img[$i]);
+                break;
+        }
         $color = imagecolorallocate($img, self::$_r[$i], self::$_g[$i], self::$_b[$i]);
         imagettftext(
             $img,
@@ -152,15 +207,24 @@ class LFMNowPlaying {
             $color,
             self::$_font[$i],
             $text);
-        header("Content-type: image/png");  //Header tweaks. Jpeg should have different content-type
-        imagepng($img);  //Show pic
-        imageDestroy($img);  //Destroy pic from memory
+
+        switch (self::$_pic_ext[$i]) {
+            case 'jpeg':
+                header("Content-type: image/jpeg");
+                imagejpeg($img, NULL, 100);
+                break;
+            case 'png':
+                header("Content-type: image/png");
+                imagepng($img);
+                break;
+            case 'gif':
+                header("Content-type: image/gif");
+                imagegif($img);
+                break;
+        }
+
+        imageDestroy($img);
     }
 
 }
-
-$creator = new LFMNowPlaying();
-$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png");
-$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130);
-$creator->Run("mr7kill");
 ?>
