@@ -10,6 +10,7 @@
  * Class LFMNowPlaying
  * Has arrays of images params. Then take random index and show it for user with LastFM song.
  */
+
 class LFMNowPlaying {
 
     static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
