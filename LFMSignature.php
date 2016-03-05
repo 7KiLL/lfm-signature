@@ -10,10 +10,6 @@
  * Class LFMNowPlaying
  * Has arrays of images params. Then take random index and show it for user with LastFM song.
  */
-
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 class LFMNowPlaying {
 
     static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
