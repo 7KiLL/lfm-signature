@@ -9,8 +9,8 @@ Features:
 
 ### How to
 1. Include class to new `.php` page or append code on this. 
-2. Build image case using `BuildPicture()`.
-3. Then just run script via `Run()` with your username.
+2. Build image case using `buildPicture()`.
+3. Then just run script via `run()` with your username.
 
 For example
 ```PHP
