@@ -11,9 +11,6 @@
  * Has arrays of images params. Then take random index and show it for user with LastFM song.
  */
 
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 class LFMNowPlaying {
 
     static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
@@ -56,11 +53,11 @@ class LFMNowPlaying {
     static private $_x = array();
     static private $_y = array();
 
-    function SetFontsPath($path) {
+    function setFontsPath($path) {
         self::$_fonts_path = $path;
     }
 
-    function SetPicsPath($path) {
+    function setPicsPath($path) {
         self::$_pics_path = $path;
     }
 
@@ -69,7 +66,7 @@ class LFMNowPlaying {
      * @return  string      Image extension
      * @throws  Exception   Bad image given
      */
-    function GetPictureExt($img) {
+    function getPictureExt($img) {
         if(preg_match("/(.jpg|.jpeg)$/i", $img)) {
             return "jpeg";
         }
@@ -118,7 +115,7 @@ class LFMNowPlaying {
      * @param int $y        Y offset
      * @throws Exception    Bad HEX given
      */
-    function BuildPicture($font, $size, $hex, $img, $x = 8, $y = 90) {
+    function buildPicture($font, $size, $hex, $img, $x = 8, $y = 90) {
         //Font tweaks
         self::$_font[self::$_case] = self::$_fonts_path.$font.".ttf";
         self::$_size[self::$_case] = $size;
@@ -136,7 +133,7 @@ class LFMNowPlaying {
             self::$_img[self::$_case] = self::$_pics_path.$img;
         }
 
-        self::$_pic_ext[self::$_case] = $this->GetPictureExt($img); //Extension
+        self::$_pic_ext[self::$_case] = $this->getPictureExt($img); //Extension
 
         //Offsets
         self::$_x[self::$_case] = $x;
@@ -151,7 +148,7 @@ class LFMNowPlaying {
      * @param null $lp   Prefix for past songs
      * @param null $divider Middle char
      */
-    function Run($user, $np = null, $lp = null, $divider = null)
+    function run($user, $np = null, $lp = null, $divider = null)
     {
         //Building URL
         $user = trim($user);
