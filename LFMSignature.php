@@ -11,7 +11,8 @@
  * Has arrays of images params. Then take random index and show it for user with LastFM song.
  */
 
-class LFMNowPlaying {
+class LFMNowPlaying 
+{
 
     static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
     static private $_nowplaying = "Now Playing: ";             //For currently playing song
@@ -53,11 +54,13 @@ class LFMNowPlaying {
     static private $_x = array();
     static private $_y = array();
 
-    function setFontsPath($path) {
+    function setFontsPath($path) 
+    {
         self::$_fonts_path = $path;
     }
 
-    function setPicsPath($path) {
+    function setPicsPath($path) 
+    {
         self::$_pics_path = $path;
     }
 
@@ -66,17 +69,15 @@ class LFMNowPlaying {
      * @return  string      Image extension
      * @throws  Exception   Bad image given
      */
-    function getPictureExt($img) {
+    function getPictureExt($img) 
+    {
         if(preg_match("/(.jpg|.jpeg)$/i", $img)) {
             return "jpeg";
-        }
-        elseif(preg_match("/.png$/i", $img)){
+        } elseif(preg_match("/.png$/i", $img)){
             return "png";
-        }
-        elseif(preg_match("/.gif$/i", $img)){
+        } elseif(preg_match("/.gif$/i", $img)){
             return "gif";
-        }
-        else {
+        } else {
             throw new Exception("Bad image given");
         }
     }
@@ -88,7 +89,8 @@ class LFMNowPlaying {
      * @throws Exception        Bad HEX given
      * Just simple modification for current script
      */
-    function HEX2RGB($hex) {
+    function HEX2RGB($hex) 
+    {
         $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hex); // Gets a proper hex string
         $rgbArray = array();
         if (strlen($hexStr) == 6) {
@@ -115,7 +117,8 @@ class LFMNowPlaying {
      * @param int $y        Y offset
      * @throws Exception    Bad HEX given
      */
-    function buildPicture($font, $size, $hex, $img, $x = 8, $y = 90) {
+    function buildPicture($font, $size, $hex, $img, $x = 8, $y = 90) 
+    {
         //Font tweaks
         self::$_font[self::$_case] = self::$_fonts_path.$font.".ttf";
         self::$_size[self::$_case] = $size;
