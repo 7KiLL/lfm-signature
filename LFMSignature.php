@@ -54,11 +54,17 @@ class LFMNowPlaying {
     static private $_y = array();
 
     function setFontsPath($path) {
-        self::$_fonts_path = $path;
+        if(preg_match("/\/$/i", $path))
+            self::$_pics_path = $path;
+        else 
+            self::$_pics_path = $path."/";
     }
 
     function setPicsPath($path) {
-        self::$_pics_path = $path;
+        if(preg_match("/\/$/i", $path))
+            self::$_pics_path = $path;
+        else 
+            self::$_pics_path = $path."/";
     }
 
     /**
@@ -177,6 +183,10 @@ class LFMNowPlaying {
 
         //$_case increment higher than images count, so we make it correct.
         $i = rand(0, self::$_case-1);
+
+        //For tests. You can use http://host.url/sig.php?case=NUMBER 
+        if(isset($_GET['case']))
+            $i = $_GET['case'];
         /**
          * @url     http://php.net/manual/ru/function.imagecreatefrompng.php
          * @url     http://php.net/manual/ru/function.imagecolorallocate.php
