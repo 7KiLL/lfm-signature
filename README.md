@@ -9,25 +9,25 @@ Features:
 
 ### How to
 1. Include class to new `.php` page or append code on this. 
-2. Build image case using `BuildPicture()`.
-3. Then just run script via `Run()` with your username.
+2. Build image case using `buildPicture()`.
+3. Then just run script via `run()` with your username.
 
 For example
 ```PHP
 $creator = new LFMNowPlaying();
 //For local image with standart offsets
-$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.png"); 
+$creator->buildPicture("DancingScript", 16, "#FF0000", "rin.png"); 
 //For hosted image with custom offset
-$creator->BuildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130); 
+$creator->buildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRUiYl7.png", 8, 130); 
 
-$creator->Run("mr7kill");
+$creator->run("mr7kill");
 ```
-Make sure that `Fonts` dir contains used fonts and pictures located in `pics` directory. Or you can use `SetFontsPath()` and `SetPicsPath()` to set your default directories. 
+Make sure that `Fonts` dir contains used fonts and pictures located in `pics` directory. Or you can use `setFontsPath()` and `setPicsPath()` to set your default directories. 
 ```PHP
 $creator = new LFMNowPlaying();
-$creator->SetPicsPath("MyPictures/");
-$creator->BuildPicture("DancingScript", 16, "#FF0000", "rin.jpeg");
-$creator->Run("mr7kill", "Currently playing: ", "Was playing: ", " / ");
+$creator->setPicsPath("MyPictures/");
+$creator->buildPicture("DancingScript", 16, "#FF0000", "rin.jpeg");
+$creator->run("mr7kill", "Currently playing: ", "Was playing: ", " / ");
 ```
 You can read script documentation for additional information. 
 
