@@ -11,7 +11,8 @@
  * Has arrays of images params. Then take random index and show it for user with LastFM song.
  */
 
-class LFMNowPlaying {
+class LFMNowPlaying 
+{
 
     static private $_api = "59c75ce54be869532e03f89b19edd849"; //Your LastFM API Key
     static private $_nowplaying = "Now Playing: ";             //For currently playing song
@@ -53,14 +54,16 @@ class LFMNowPlaying {
     static private $_x = array();
     static private $_y = array();
 
-    function setFontsPath($path) {
+    function setFontsPath($path) 
+    {
         if(preg_match("/\/$/i", $path))
             self::$_pics_path = $path;
         else 
             self::$_pics_path = $path."/";
     }
 
-    function setPicsPath($path) {
+    function setPicsPath($path) 
+    {
         if(preg_match("/\/$/i", $path))
             self::$_pics_path = $path;
         else 
@@ -72,7 +75,8 @@ class LFMNowPlaying {
      * @return  string      Image extension
      * @throws  Exception   Bad image given
      */
-    function getPictureExt($img) {
+    function getPictureExt($img) 
+    {
         if(preg_match("/(.jpg|.jpeg)$/i", $img)) {
             return "jpeg";
         }
@@ -94,7 +98,8 @@ class LFMNowPlaying {
      * @throws Exception        Bad HEX given
      * Just simple modification for current script
      */
-    function HEX2RGB($hex) {
+    function HEX2RGB($hex) 
+    {
         $hexStr = preg_replace("/[^0-9A-Fa-f]/", '', $hex); // Gets a proper hex string
         $rgbArray = array();
         if (strlen($hexStr) == 6) {
@@ -121,7 +126,8 @@ class LFMNowPlaying {
      * @param int $y        Y offset
      * @throws Exception    Bad HEX given
      */
-    function buildPicture($font, $size, $hex, $img, $x = 8, $y = 90) {
+    function buildPicture($font, $size, $hex, $img, $x = 10, $y = 135) 
+    {
         //Font tweaks
         self::$_font[self::$_case] = self::$_fonts_path.$font.".ttf";
         self::$_size[self::$_case] = $size;
@@ -183,7 +189,6 @@ class LFMNowPlaying {
 
         //$_case increment higher than images count, so we make it correct.
         $i = rand(0, self::$_case-1);
-
         //For tests. You can use http://host.url/sig.php?case=NUMBER 
         if(isset($_GET['case']))
             $i = $_GET['case'];
@@ -204,6 +209,7 @@ class LFMNowPlaying {
                 $img = imagecreatefromgif(self::$_img[$i]);
                 break;
         }
+        
         $color = imagecolorallocate($img, self::$_r[$i], self::$_g[$i], self::$_b[$i]);
         imagettftext(
             $img,
@@ -229,9 +235,8 @@ class LFMNowPlaying {
                 imagegif($img);
                 break;
         }
-
+        
         imageDestroy($img);
     }
-
 }
 ?>
