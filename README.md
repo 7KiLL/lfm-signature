@@ -1,5 +1,7 @@
 # LastFM Signature
 
+![alt text](https://lfm-sig.herokuapp.com/sig.php "Live preview")
+
 Simple class for those who want to make their signature cool. 
 Features:
 
@@ -8,7 +10,7 @@ Features:
 3. Varity. You can make many cases of images with custom settings and return them randomly
 
 ### How to
-1. Include class to new `.php` page or append code on this. 
+1. Include class to new `.php` script or append code to this class. 
 2. Build image case using `buildPicture()`.
 3. Then just run script via `run()` with your username.
 
@@ -22,7 +24,7 @@ $creator->buildPicture("Permanent Marker", 16, "008cf0", "http://i.imgur.com/VRU
 
 $creator->run("mr7kill");
 ```
-Make sure that `Fonts` dir contains used fonts and pictures located in `pics` directory. Or you can use `setFontsPath()` and `setPicsPath()` to set your default directories. 
+Make sure that `fonts` dir contains used fonts and pictures located in `pics` directory. Or you can use `setFontsPath()` and `setPicsPath()` to set your default directories. 
 ```PHP
 $creator = new LFMNowPlaying();
 $creator->setPicsPath("MyPictures/");
@@ -32,4 +34,4 @@ $creator->run("mr7kill", "Currently playing: ", "Was playing: ", " / ");
 You can read script documentation for additional information. 
 
 
-###[Live Demo](http://sig-lfmgen.rhcloud.com/json.php)
+### [Live Demo](http://sig-lfmgen.rhcloud.com/json.php)

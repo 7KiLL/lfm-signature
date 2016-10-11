@@ -19,8 +19,8 @@ class LFMNowPlaying
     static private $_lastplayed = "Last Played: ";             //For the last song
     static private $_divider = " - ";                          //Char between artist and song
     static private $_case = 0;                                 //Array random range
-    static private $_fonts_path = "Fonts/";
-    static private $_pics_path = "pics/";
+    static private $_fonts_path = "fonts";
+    static private $_pics_path = "pics";
 
 
     //Image Params
